@@ -15,6 +15,9 @@ gem 'puma', '~> 3.11'
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
+gem 'faraday'
+gem 'json'
+gem 'jsonapi-serializer'
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
@@ -36,6 +39,11 @@ group :development, :test do
   gem 'faker'
   gem 'factory_bot_rails'
   gem 'rspec-rails'
+  gem 'shoulda-matchers'
+  gem 'orderly'
+  gem 'launchy'
+  gem 'vcr'
+  gem 'webmock'
 end
 
 group :development do
