@@ -5,6 +5,18 @@ class ApplicationController < ActionController::API
     render json: { error: exception.message }, status: :not_found
   end
 
+  def render_unprocessable(object)
+    render json: { error: object.errors.full_messages }, status: :unprocessable_entity
+  end
+
+  def render_validation(object)
+    render json: { error: object.errors.full_messages }, status: :not_found
+  end
+
+  def render_bad_request(message)
+    render json: { error: message }, status: :bad_request
+  end  
+
   def get_page
     if params[:page] = "0"
       params[:page].to_i
