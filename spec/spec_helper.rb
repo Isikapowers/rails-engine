@@ -18,6 +18,11 @@ require 'factory_bot'
 require 'simplecov'
 
 SimpleCov.start 'rails'
+SimpleCov.start do
+  add_filter 'app/channels/application_cable'
+  add_filter 'app/job'
+  add_filter 'app/mailers'
+end
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
