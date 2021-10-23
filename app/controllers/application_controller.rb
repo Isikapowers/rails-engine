@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class ApplicationController < ActionController::API
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
 
@@ -20,14 +18,20 @@ class ApplicationController < ActionController::API
   end
 
   def get_page
-    if params[:page] = '0'
-      params[:page].to_i
-    else
+    if params[:page].to_i <= 0
+      params[:page] = 1
+    elsif params[:page].nil?
       params.fetch(:page, 1).to_i
+    else
+      params[:page].to_i
     end
   end
 
   def get_per_page
-    params.fetch(:per_page, 20).to_i
+    if params[:per_page].nil?
+      params.fetch(:per_page, 20).to_i
+    else
+      params[:per_page].to_i
+    end
   end
 end
