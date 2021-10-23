@@ -28,7 +28,7 @@
 - Postman
 
 ## Database Schema
-<img width="599" alt="Screen Shot 2021-10-20 at 3 11 09 PM" src="https://user-images.githubusercontent.com/72399033/138172813-e892a835-7389-4e37-a70d-247b65ddc249.png">
+![Schema](https://user-images.githubusercontent.com/72399033/134418403-99e1a24c-11fb-442c-a682-01e86095ba7d.png)
 
 ## Setup
 * Fork this repository
