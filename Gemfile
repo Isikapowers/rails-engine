@@ -45,6 +45,7 @@ group :development, :test do
   gem 'vcr'
   gem 'webmock'
   gem 'rubocop-rails'
+  gem 'travis'
 end
 
 group :development do
