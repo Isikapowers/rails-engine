@@ -34,4 +34,8 @@ class ApplicationController < ActionController::API
       params[:per_page].to_i
     end
   end
+
+  def params_exist(param)
+    param.present?
+  end
 end

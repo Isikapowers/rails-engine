@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Merchants API' do
-  describe 'GET merchants' do
+  describe 'Part1--GET merchants' do
     it 'sends a list of all merchants' do
       create_list(:merchant, 5)
 
@@ -121,6 +121,63 @@ RSpec.describe 'Merchants API' do
         expect(item[:attributes]).to have_key(:merchant_id)
         expect(item[:attributes][:merchant_id]).to be_a(Integer)
       end
+    end
+  end
+
+  describe 'Part2--non-RESTful endpoints' do
+    it 'can find a single merchant with name params' do
+      create(:merchant, name: 'Costco')
+      create(:merchant, name: 'Cocho')
+      create(:merchant, name: 'Cochella')
+
+      get '/api/v1/merchants/find?name=Co'
+
+      expect(response).to be_successful
+
+      merchant = JSON.parse(response.body, symbolize_names: true)
+
+      expect(merchant.count).to eq(1)
+      expect(merchant[:data][:attributes][:name]).to eq('Cochella')
+    end
+
+    it 'returns an error when not found' do
+      create(:merchant, name: 'Costco')
+      create(:merchant, name: 'Cocho')
+      create(:merchant, name: 'Cochella')
+
+      get '/api/v1/merchants/find?name=target'
+
+      expect(response).to be_successful
+
+      merchant = JSON.parse(response.body, symbolize_names: true)
+
+      expect(merchant[:data]).to eq({})
+    end
+
+    it 'returns an error when no params given' do
+      create(:merchant, name: 'Costco')
+      create(:merchant, name: 'Cocho')
+      create(:merchant, name: 'Cochella')
+
+      get '/api/v1/merchants/find?name='
+
+      expect(response).to_not be_successful
+
+      expect(response.status).to eq(400)
+    end
+
+    it 'can find all merchants with name params' do
+      create(:merchant, name: 'Costco')
+      create(:merchant, name: 'Cocho')
+      create(:merchant, name: 'Cochella')
+
+      get '/api/v1/merchants/find_all?name=Co'
+
+      expect(response).to be_successful
+
+      merchants = JSON.parse(response.body, symbolize_names: true)
+
+      expect(merchants[:data].count).to eq(3)
     end
   end
 end
