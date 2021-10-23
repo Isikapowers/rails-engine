@@ -13,6 +13,8 @@
 # it.
 
 require 'webmock/rspec'
+require 'faker'
+require 'factory_bot'
 require 'simplecov'
 
 SimpleCov.start 'rails'
