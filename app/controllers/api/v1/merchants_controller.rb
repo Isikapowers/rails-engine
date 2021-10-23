@@ -12,6 +12,15 @@ module Api
         merchant = Merchant.find(params[:id])
         render json: MerchantSerializer.new(merchant)
       end
+
+      def find
+        merchant = Merchant.search(params[:name])
+        if merchant.nil?
+          render json: render_validation(merchant)
+        else
+          render json: MerchantSerializer(merchant)
+        end
+      end
     end
   end
 end
