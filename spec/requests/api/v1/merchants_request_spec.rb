@@ -1,9 +1,7 @@
-# frozen_string_literal: true
-
 require 'rails_helper'
 
 RSpec.describe 'Merchants API' do
-  describe 'get all merchants' do
+  describe 'GET merchants' do
     it 'sends a list of all merchants' do
       create_list(:merchant, 5)
 
@@ -60,7 +58,7 @@ RSpec.describe 'Merchants API' do
       expect(merchant11).to be(false)
     end
 
-    xit 'returns a specific page when queried' do
+    it 'returns a specific page when queried' do
       create_list(:merchant, 21)
 
       get '/api/v1/merchants?page=2'
@@ -79,7 +77,7 @@ RSpec.describe 'Merchants API' do
     end
   end
 
-  describe 'fetch a single merchant' do
+  describe 'GET a single merchant' do
     it 'can get one single merchant by id' do
       merchant = create(:merchant)
 
@@ -97,7 +95,7 @@ RSpec.describe 'Merchants API' do
     end
   end
 
-  describe 'fetch all items of that merchant' do
+  describe 'GET items of that merchant' do
     it "returns a list of that merchant's items" do
       id = create(:merchant).id
       create_list(:item, 5, merchant_id: id)
