@@ -1,12 +1,14 @@
-require "rails_helper"
+# frozen_string_literal: true
 
-RSpec.describe "Items Api" do
-  describe "GET items" do
-    it "returns all items" do
+require 'rails_helper'
+
+RSpec.describe 'Items Api' do
+  describe 'GET items' do
+    it 'returns all items' do
       merchant = create(:merchant)
       create_list(:item, 10, merchant_id: merchant.id)
 
-      get "/api/v1/items"
+      get '/api/v1/items'
 
       expect(response).to be_successful
 
@@ -27,11 +29,11 @@ RSpec.describe "Items Api" do
       end
     end
 
-    it "returns only 20 items per page when no queried" do
+    it 'returns only 20 items per page when no queried' do
       merchant = create(:merchant)
       create_list(:item, 21, merchant_id: merchant.id)
 
-      get "/api/v1/items"
+      get '/api/v1/items'
 
       expect(response).to be_successful
 
@@ -39,18 +41,18 @@ RSpec.describe "Items Api" do
 
       expect(items[:data].count).to eq(20)
 
-      item_21 = items[:data].any? do |item|
+      item21 = items[:data].any? do |item|
         item[:attributes][:name] == Item.last.name
       end
 
-      expect(item_21).to be(false)
+      expect(item21).to be(false)
     end
 
-    it "returns a specific amount of items per page when queried" do
+    it 'returns a specific amount of items per page when queried' do
       merchant = create(:merchant)
       create_list(:item, 6, merchant_id: merchant.id)
 
-      get "/api/v1/items?per_page=5"
+      get '/api/v1/items?per_page=5'
 
       expect(response).to be_successful
 
@@ -58,14 +60,14 @@ RSpec.describe "Items Api" do
 
       expect(items[:data].count).to eq(5)
 
-      item_6 = items[:data].any? do |item|
+      item6 = items[:data].any? do |item|
         item[:attributes][:name] == Item.last.name
       end
 
-      expect(item_6).to be(false)
-   end
+      expect(item6).to be(false)
+    end
 
-   it "returns a specific page when queried" do
+    it 'returns a specific page when queried' do
       merchant = create(:merchant)
       create_list(:item, 21, merchant_id: merchant.id)
 
@@ -77,16 +79,16 @@ RSpec.describe "Items Api" do
 
       expect(items[:data].count).to eq(20)
 
-      item_21 = items[:data].any? do |item|
+      item21 = items[:data].any? do |item|
         item[:attributes][:name] == Item.last.name
       end
 
-      expect(item_21).to be(false)
-   end
- end
+      expect(item21).to be(false)
+    end
+  end
 
- describe "GET a single item" do
-    it "returns only the item" do
+  describe 'GET a single item' do
+    it 'returns only the item' do
       merchant = create(:merchant)
       item = create(:item, merchant_id: merchant.id)
 
@@ -112,18 +114,18 @@ RSpec.describe "Items Api" do
     end
   end
 
-  describe "POST items" do
-    it "can create an item" do
+  describe 'POST items' do
+    it 'can create an item' do
       id = create(:merchant).id
-      item_params = ({
-                      name: "Lunch Box",
-                      description: "Kids lunch box leak proof",
-                      unit_price: "19",
-                      merchant_id: id
-                    })
-      headers = { "CONTENT_TYPE" => "application/json"}
+      item_params = {
+        name: 'Lunch Box',
+        description: 'Kids lunch box leak proof',
+        unit_price: '19',
+        merchant_id: id
+      }
+      headers = { 'CONTENT_TYPE' => 'application/json' }
 
-      post "/api/v1/items", headers: headers, params: JSON.generate(item: item_params)
+      post '/api/v1/items', headers: headers, params: JSON.generate(item: item_params)
 
       create_item = Item.last
 
@@ -136,26 +138,26 @@ RSpec.describe "Items Api" do
     end
   end
 
-  describe "PUT" do
-    it "updates an item" do
+  describe 'PUT' do
+    it 'updates an item' do
       merchant = create(:merchant)
       id = create(:item, merchant_id: merchant.id).id
 
       previous_name = Item.last.name
-      item_params = { name: "Leak Proof Lunch Box"}
-      headers = {"CONTENT_TYPE" => "application/json"}
+      item_params = { name: 'Leak Proof Lunch Box' }
+      headers = { 'CONTENT_TYPE' => 'application/json' }
 
-      patch "/api/v1/items/#{id}", headers: headers, params: JSON.generate({item: item_params})
+      patch "/api/v1/items/#{id}", headers: headers, params: JSON.generate({ item: item_params })
       item = Item.find_by(id: id)
 
       expect(response).to be_successful
 
       expect(item.name).to_not eq(previous_name)
-      expect(item.name).to eq("Leak Proof Lunch Box")
+      expect(item.name).to eq('Leak Proof Lunch Box')
     end
   end
 
-  describe "GET" do
+  describe 'GET' do
     it "can get an item's merchant" do
       merchant = create(:merchant)
       item = create(:item, merchant_id: merchant.id)

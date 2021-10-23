@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::API
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
 
@@ -15,10 +17,10 @@ class ApplicationController < ActionController::API
 
   def render_bad_request(message)
     render json: { error: message }, status: :bad_request
-  end  
+  end
 
   def get_page
-    if params[:page] = "0"
+    if params[:page] = '0'
       params[:page].to_i
     else
       params.fetch(:page, 1).to_i

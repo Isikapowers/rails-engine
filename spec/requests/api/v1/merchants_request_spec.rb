@@ -1,11 +1,13 @@
-require "rails_helper"
+# frozen_string_literal: true
 
-RSpec.describe "Merchants API" do
-  describe "get all merchants" do
-    it "sends a list of all merchants" do
+require 'rails_helper'
+
+RSpec.describe 'Merchants API' do
+  describe 'get all merchants' do
+    it 'sends a list of all merchants' do
       create_list(:merchant, 5)
 
-      get "/api/v1/merchants"
+      get '/api/v1/merchants'
 
       expect(response).to be_successful
 
@@ -22,10 +24,10 @@ RSpec.describe "Merchants API" do
       end
     end
 
-    it "has a default limit of 20 and start with page 1" do
+    it 'has a default limit of 20 and start with page 1' do
       create_list(:merchant, 21)
 
-      get "/api/v1/merchants"
+      get '/api/v1/merchants'
 
       expect(response).to be_successful
 
@@ -33,17 +35,17 @@ RSpec.describe "Merchants API" do
 
       expect(merchants[:data].count).to eq(20)
 
-      merchant_21 = merchants[:data].any? do |merchant|
+      merchant21 = merchants[:data].any? do |merchant|
         merchant[:attributes][:name] == Merchant.last.name
       end
 
-      expect(merchant_21).to be(false)
+      expect(merchant21).to be(false)
     end
 
-    it "returns an amount of merchants per page when queried" do
+    it 'returns an amount of merchants per page when queried' do
       create_list(:merchant, 11)
 
-      get "/api/v1/merchants?per_page=10"
+      get '/api/v1/merchants?per_page=10'
 
       expect(response).to be_successful
 
@@ -51,17 +53,17 @@ RSpec.describe "Merchants API" do
 
       expect(merchants[:data].count).to eq(10)
 
-      merchant_11 = merchants[:data].any? do |merchant|
+      merchant11 = merchants[:data].any? do |merchant|
         merchant[:attributes][:name] == Merchant.last.name
       end
 
-      expect(merchant_11).to be(false)
+      expect(merchant11).to be(false)
     end
 
-    xit "returns a specific page when queried" do
+    xit 'returns a specific page when queried' do
       create_list(:merchant, 21)
 
-      get "/api/v1/merchants?page=2"
+      get '/api/v1/merchants?page=2'
 
       expect(response).to be_successful
 
@@ -69,16 +71,16 @@ RSpec.describe "Merchants API" do
 
       expect(merchants[:data].count).to eq(1)
 
-      merchant_21 = merchants[:data].any? do |merchant|
+      merchant21 = merchants[:data].any? do |merchant|
         merchant[:attributes][:name] == Merchant.last.name
       end
 
-      expect(merchant_21).to be(true)
+      expect(merchant21).to be(true)
     end
   end
 
-  describe "fetch a single merchant" do
-    it "can get one single merchant by id" do
+  describe 'fetch a single merchant' do
+    it 'can get one single merchant by id' do
       merchant = create(:merchant)
 
       get "/api/v1/merchants/#{merchant.id}"
@@ -95,7 +97,7 @@ RSpec.describe "Merchants API" do
     end
   end
 
-  describe "fetch all items of that merchant" do
+  describe 'fetch all items of that merchant' do
     it "returns a list of that merchant's items" do
       id = create(:merchant).id
       create_list(:item, 5, merchant_id: id)
