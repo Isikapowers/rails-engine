@@ -179,5 +179,19 @@ RSpec.describe 'Merchants API' do
 
       expect(merchants[:data].count).to eq(3)
     end
+
+    it 'returns error when no name params given' do
+      create(:merchant, name: 'Costco')
+      create(:merchant, name: 'Cocho')
+      create(:merchant, name: 'Cochella')
+
+      get '/api/v1/merchants/find_all?'
+
+      expect(response).to_not be_successful
+
+      merchants = JSON.parse(response.body, symbolize_names: true)
+
+      expect(merchants[:error]).to eq("params not given")
+    end
   end
 end

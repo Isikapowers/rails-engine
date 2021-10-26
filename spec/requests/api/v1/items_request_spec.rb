@@ -225,6 +225,20 @@ RSpec.describe 'Items Api' do
       expect(items[:data].count).to eq(3)
     end
 
+    it 'returns error when name params not given' do
+      create(:item, name: 'Lunch Box')
+      create(:item, name: 'Lulu')
+      create(:item, name: 'Luva')
+
+      get '/api/v1/items/find_all?'
+
+      expect(response).to_not be_successful
+
+      items = JSON.parse(response.body, symbolize_names: true)
+
+      expect(items[:error]).to eq("params not given")
+    end
+
     it 'finds one item by prices' do
       create(:item, unit_price: 10)
       create(:item, unit_price: 15)
