@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'rails_helper'
 
 RSpec.describe 'Items Api' do
@@ -170,6 +168,76 @@ RSpec.describe 'Items Api' do
 
       expect(merchant_hash[:data][:id]).to eq(merchant.id.to_s)
       expect(merchant_hash[:data][:attributes][:name]).to eq(merchant.name)
+    end
+  end
+
+  describe 'Part2--Non-RESTful' do
+    it 'can get a single item with name params' do
+      create(:item, name: 'Lunch Box')
+      create(:item, name: 'Lulu')
+      create(:item, name: 'Luva')
+
+      get '/api/v1/items/find?name=lU'
+
+      expect(response).to be_successful
+
+      item = JSON.parse(response.body, symbolize_names: true)
+
+      expect(item.count).to eq(1)
+      expect(item[:data][:attributes][:name]).to eq('Lulu')
+    end
+
+    it 'displays an empty hash when name not found' do
+      create(:item, name: 'Lunch Box')
+      create(:item, name: 'Lulu')
+      create(:item, name: 'Luva')
+
+      get '/api/v1/items/find?name=puppy'
+
+      item = JSON.parse(response.body, symbolize_names: true)
+
+      expect(item.count).to eq(1)
+      expect(item[:data]).to eq({})
+    end
+
+    it 'displays a 400 error when no name given' do
+      create(:item, name: 'Lunch Box')
+      create(:item, name: 'Lulu')
+      create(:item, name: 'Luva')
+
+      get '/api/v1/items/find?name='
+
+      expect(response).to_not be_successful
+      expect(response.status).to eq(400)
+    end
+
+    it 'returns all items that match name params' do
+      create(:item, name: 'Lunch Box')
+      create(:item, name: 'Lulu')
+      create(:item, name: 'Luva')
+
+      get '/api/v1/items/find_all?name=lU'
+
+      expect(response).to be_successful
+
+      items = JSON.parse(response.body, symbolize_names: true)
+
+      expect(items[:data].count).to eq(3)
+    end
+
+    it 'finds one item by prices' do
+      create(:item, unit_price: 10)
+      create(:item, unit_price: 15)
+      toy = create(:item, unit_price: 20)
+
+      get '/api/v1/items/find?min_price=20'
+
+      expect(response).to be_successful
+
+      item = JSON.parse(response.body, symbolize_names: true)
+
+      expect(item.count).to eq(1)
+      expect(item[:data][:attributes][:name]).to eq(toy.name)
     end
   end
 end
