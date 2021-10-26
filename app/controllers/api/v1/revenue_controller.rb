@@ -13,4 +13,20 @@ class Api::V1::RevenueController < ApplicationController
       render_bad_request("params not given")
     end
   end
+
+  def unshipped
+    quantity = params.fetch(:quantity, 10).to_i
+    if quantity != 0
+      invoices = Invoice.potential_revenue_unshipped(quantity)
+      render json: UnshippedOrderSerializer.new(invoices)
+    else
+      render_bad_request("params not valid")
+    end
+  end
+
+  def weekly
+    id = nil
+    revenue = Invoice.weekly_revenue
+    render json: WeeklyRevenueSerializer.format_data(id, revenue)
+  end
 end
