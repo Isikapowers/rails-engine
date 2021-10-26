@@ -16,6 +16,7 @@
 
 ## Learning Goals
 - Practice building API endpoints for both RESTFUL and non-RESTFUL.
+- Practice using serializer.
 - Utilize Postman
 - Utilize advanced ActiveRecord techniques to perform complex database queries.
 
@@ -23,8 +24,7 @@
 - Rails 5.2.5
 - Ruby 2.7.2
 - PostgreSQL
-- Test all feature and model code
-- JSONAPI
+- JSONAPI::Serializer
 - Postman
 
 ## Database Schema
@@ -36,6 +36,7 @@
 * From the command line, install gems and set up your DB:
     * `bundle install`
     * `rails db:{drop,create,migrate, seed}`
+    * `rails db:schema:dump`
 * Run the test suite with `bundle exec rspec`.
 * Run your development server with `rails s` to see the API app in action.
 
@@ -49,7 +50,7 @@
 | Ruby 2.7.2     | SimpleCov            |
 | Rails 5.2.6    | Pry                  |
 | Atom           | Launchy              |
-| Git            | Orderly              |
+| Git            | Travis CI            |
 | Github         | Factorybot/Faker     |
 | Github Project | Postman              |
 | Postico        | RSpec                |
