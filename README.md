@@ -1,4 +1,4 @@
-# rails-engine [Travis CI](https://app.travis-ci.com/Isikapowers/rails-engine.svg?branch=main)
+# rails-engine ![Travis CI](https://app.travis-ci.com/Isikapowers/rails-engine.svg?branch=main)
 
 ## Table of contents
 * [Description](#description)
