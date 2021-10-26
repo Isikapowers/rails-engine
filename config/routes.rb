@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   namespace :api do
@@ -13,6 +11,9 @@ Rails.application.routes.draw do
       get '/items/find_all', to: 'items#find_all'
       resources :items
       get '/items/:id/merchant', to: 'item_merchants#show'
+
+      get '/revenue/merchants/:id', to: 'revenue#show'
+      get '/revenue/merchants', to: 'revenue#quantity_merchants'
     end
   end
 end
