@@ -134,6 +134,21 @@ RSpec.describe 'Items Api' do
       expect(create_item.unit_price).to eq(item_params[:unit_price].to_i)
       expect(create_item.merchant_id).to eq(item_params[:merchant_id])
     end
+
+    it 'returns error when not able to create an intem' do
+      id = create(:merchant).id
+      item_params = {
+        description: 'Kids lunch box leak proof',
+        unit_price: '19',
+        merchant_id: id
+      }
+      headers = { 'CONTENT_TYPE' => 'application/json' }
+
+      post '/api/v1/items', headers: headers, params: JSON.generate(item: item_params)
+
+      expect(response).to_not be_successful
+      expect(response).to have_http_status(:unprocessable_entity)
+    end
   end
 
   describe 'PUT' do
@@ -152,6 +167,20 @@ RSpec.describe 'Items Api' do
 
       expect(item.name).to_not eq(previous_name)
       expect(item.name).to eq('Leak Proof Lunch Box')
+    end
+
+    it 'returns an error when updating an item unsuccessfully' do
+      merchant = create(:merchant)
+      id = create(:item, merchant_id: merchant.id).id
+
+      Item.last.name
+      item_params = { name: "" }
+      headers = { 'CONTENT_TYPE' => 'application/json' }
+
+      patch "/api/v1/items/#{id}", headers: headers, params: JSON.generate({ item: item_params })
+
+      expect(response).to_not be_successful
+      expect(response).to have_http_status(:not_found)
     end
   end
 
