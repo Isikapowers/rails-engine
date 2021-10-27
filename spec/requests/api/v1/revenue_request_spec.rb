@@ -186,4 +186,86 @@ RSpec.describe "Revenue API" do
       end
     end
   end
+
+  describe "GET items with most revenue" do
+    it "returns items with most revenue" do
+      id = create(:merchant).id
+      create_list(:item, 15, merchant_id: id)
+      invoices = create_list(:invoice, 15, merchant_id: id, status: "shipped")
+
+      invoices.each do |invoice|
+        create(:invoice_item, invoice: invoice)
+      end
+
+      Invoice.all.each do |invoice|
+        create(:transaction, invoice: invoice, result: "success")
+      end
+
+      get "/api/v1/revenue/items"
+
+      expect(response).to be_successful
+
+      items = JSON.parse(response.body, symbolize_names: true)
+
+      expect(items[:data].count).to eq(10)
+
+      items[:data].each do |item|
+        expect(item[:attributes]).to have_key(:name)
+        expect(item[:attributes][:name]).to be_a(String)
+
+        expect(item[:attributes]).to have_key(:description)
+        expect(item[:attributes][:description]).to be_a(String)
+
+        expect(item[:attributes]).to have_key(:unit_price)
+        expect(item[:attributes][:unit_price]).to be_a(Float)
+
+        expect(item[:attributes]).to have_key(:merchant_id)
+        expect(item[:attributes][:merchant_id]).to be_a(Integer)
+
+        expect(item[:attributes]).to have_key(:revenue)
+        expect(item[:attributes][:revenue]).to be_a(Float)
+      end
+    end
+
+    it "returns an error when not given correct params" do
+      id = create(:merchant).id
+      create_list(:item, 15, merchant_id: id)
+      invoices = create_list(:invoice, 15, merchant_id: id, status: "shipped")
+
+      invoices.each do |invoice|
+        create(:invoice_item, invoice: invoice)
+      end
+
+      Invoice.all.each do |invoice|
+        create(:transaction, invoice: invoice, result: "success")
+      end
+
+      get "/api/v1/revenue/items?quantity=0"
+
+      expect(response).to_not be_successful
+      expect(response).to have_http_status(:bad_request)
+    end
+
+    it "returns an amount of items by given params" do
+      id = create(:merchant).id
+      create_list(:item, 15, merchant_id: id)
+      invoices = create_list(:invoice, 15, merchant_id: id, status: "shipped")
+
+      invoices.each do |invoice|
+        create(:invoice_item, invoice: invoice)
+      end
+
+      Invoice.all.each do |invoice|
+        create(:transaction, invoice: invoice, result: "success")
+      end
+
+      get "/api/v1/revenue/items?quantity=5"
+
+      expect(response).to be_successful
+
+      items = JSON.parse(response.body, symbolize_names: true)
+
+      expect(items[:data].count).to eq(5)
+    end
+  end
 end
