@@ -29,4 +29,14 @@ class Api::V1::RevenueController < ApplicationController
     revenue = Invoice.weekly_revenue
     render json: WeeklyRevenueSerializer.format_data(id, revenue)
   end
+
+  def items
+    quantity = params.fetch(:quantity, 10).to_i
+    if quantity != 0
+      items = Item.most_revenue(quantity)
+      render json: ItemRevenueSerializer.new(items)
+    else
+      render_bad_request("params not valid")
+    end
+  end
 end
