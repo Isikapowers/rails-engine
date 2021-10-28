@@ -73,7 +73,7 @@
 * Run your development server with `rails s` to see the API app in action.
 
 ## Live App
-[Link to Heroku deployment](https://viewing-party-denver.herokuapp.com)
+[Link to Heroku deployment](https://rails-engine-denver.herokuapp.com/api/v1)
 
 ## Tools Used
 
