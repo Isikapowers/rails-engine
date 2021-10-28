@@ -36,19 +36,19 @@
 |                         Route                               |                     Description                      |
 | :---------------------------------------------------------: | :-------------------------------------------------:  |
 | GET /api/v1/merchants	                                      | Get all merchants (default 20 per page)              |
-| GET /api/v1/merchants?per_page=number&page=number.          | Get all merchants using pagination                   |
+| GET /api/v1/merchants?per_page=number&page=number           | Get all merchants using pagination                   |
 | GET /api/v1/merchants/id	                                   | Get one merchant by id                               |   
 | GET /api/v1/merchants/id/items                              | Get all items for one merchant by id                 |
-| GET /api/v1/merchants/find?name=text.                       | Get merchant by name                                 |
-| GET /api/v1/merchants/find_all?name=text.                   | Get all merchants by name                            |
+| GET /api/v1/merchants/find?name=text                        | Get merchant by name                                 |
+| GET /api/v1/merchants/find_all?name=text                    | Get all merchants by name                            |
 | GET /api/v1/items                                           | Get all items (default 20 per page)                  |
-| GET /api/v1/items?per_page=number&page=number.              | Get all items using pagination                       |
+| GET /api/v1/items?per_page=number&page=number               | Get all items using pagination                       |
 | GET /api/v1/items/id                                        | Get one item by id                                   |
 | POST /api/v1/items                                          | Create an item                                       |
 | PATCH /api/v1/items/id                                      | Update an item                                       |
 | DELETE /api/v1/items/id                                     | Delete an item                                       |
 | GET /api/v1/items/id/merchant                               | Get an item's merchant                               |
-| GET /api/v1/items/find?name=text.                           | Get item by name                                     |
+| GET /api/v1/items/find?name=text                            | Get item by name                                     |
 | GET /api/v1/items/find?min_price=number                     | Get item by minumum price                            |
 | GET /api/v1/items/find?max_price=number                     | Get item by maximum price                            |
 | GET /api/v1/items/find?min_price=number&max_price=number    | Get item by price range                              |
