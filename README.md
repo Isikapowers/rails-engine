@@ -5,7 +5,7 @@
 * [Learning Goals](#learning-goals)
 * [Requirements](#requirements)
 * [Database Schema](#database-schema)
-* [API End Points](#api-endpoints)
+* [API Endpoints](#api-endpoints)
 * [Setup](#setup)
 * [Live App](#live-app)
 * [Tools Used](#tools-used)
@@ -36,30 +36,30 @@
 |                         Route                               |                     Description                      |
 | :---------------------------------------------------------: | :-------------------------------------------------:  |
 | GET /api/v1/merchants	                                      | Get all merchants (default 20 per page)              |
-| GET /api/v1/merchants?per_page=<number>&page=<number>       | Get all merchants using pagination                   |
+| GET /api/v1/merchants?per_page=number&page=number.          | Get all merchants using pagination                   |
 | GET /api/v1/merchants/id	                                   | Get one merchant by id                               |   
 | GET /api/v1/merchants/id/items                              | Get all items for one merchant by id                 |
-| GET /api/v1/merchants/find?name=<text>	                    | Get merchant by name                                 |
-| GET /api/v1/merchants/find_all?name=<text>                  | Get all merchants by name                            |
+| GET /api/v1/merchants/find?name=text.                       | Get merchant by name                                 |
+| GET /api/v1/merchants/find_all?name=text.                   | Get all merchants by name                            |
 | GET /api/v1/items                                           | Get all items (default 20 per page)                  |
-| GET /api/v1/items?per_page=<number>&page=<number>           | Get all items using pagination                       |
+| GET /api/v1/items?per_page=number&page=number.              | Get all items using pagination                       |
 | GET /api/v1/items/id                                        | Get one item by id                                   |
 | POST /api/v1/items                                          | Create an item                                       |
 | PATCH /api/v1/items/id                                      | Update an item                                       |
 | DELETE /api/v1/items/id                                     | Delete an item                                       |
 | GET /api/v1/items/id/merchant                               | Get an item's merchant                               |
-| GET /api/v1/items/find?name=<text>                          | Get item by name                                     |
-| GET /api/v1/items/find?min_price=<number>                   | Get item by minumum price                            |
-| GET /api/v1/items/find?max_price=<number>                   | Get item by maximum price                            |
-| GET /api/v1/items/find?min_price=<number>&max_price=<number>| Get item by price range                              |
-| GET /api/v1/items/find_all?name=<text>                      | Get all items by name                                |
-| GET /api/v1/revenue/merchants?quantity=<number>             | Get x amount of merchants by most revenue            |
-| GET /api/v1/merchants/most_items?quantity=<number>          | Get x amount of merchants by most items              |
+| GET /api/v1/items/find?name=text.                           | Get item by name                                     |
+| GET /api/v1/items/find?min_price=number                     | Get item by minumum price                            |
+| GET /api/v1/items/find?max_price=number                     | Get item by maximum price                            |
+| GET /api/v1/items/find?min_price=number&max_price=number    | Get item by price range                              |
+| GET /api/v1/items/find_all?name=text.                       | Get all items by name                                |
+| GET /api/v1/revenue/merchants?quantity=number               | Get x amount of merchants by most revenue            |
+| GET /api/v1/merchants/most_items?quantity=number            | Get x amount of merchants by most items              |
 | GET /api/v1/revenue/merchants/id                            | Get revenue for a merchant by id                     |
 | GET /api/v1/revenue/items                                   | Get top ten items by revenue                         |
-| GET /api/v1/revenue/items?quantity=<number>                 | Get x amount of items by most revenue                |
+| GET /api/v1/revenue/items?quantity=number                   | Get x amount of items by most revenue                |
 | GET /api/v1/revenue/unshipped                               | Get top ten invoices for unshipped revenue           |
-| GET /api/v1/revenue/unshipped?quantity=<number>             | Get x amount of invoices for unshipped revenue       |
+| GET /api/v1/revenue/unshipped?quantity=number               | Get x amount of invoices for unshipped revenue       |
 | GET /api/v1/revenue/weekly                                  | Get revenue by week                                  |
 
 ## Setup
