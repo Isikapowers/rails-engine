@@ -33,7 +33,8 @@
 
 ## API Endpoints
 
-| ------------------------- route --------------------------- | -------------------- description ------------------- |
+|                         Route                               |                     Description                      |
+| :---------------------------------------------------------: | :-------------------------------------------------:  |
 | GET /api/v1/merchants	                                      | Get all merchants (default 20 per page)              |
 | GET /api/v1/merchants?per_page=<number>&page=<number>       | Get all merchants using pagination                   |
 | GET /api/v1/merchants/id	                                   | Get one merchant by id                               |   
