@@ -5,7 +5,7 @@
 * [Learning Goals](#learning-goals)
 * [Requirements](#requirements)
 * [Database Schema](#database-schema)
-* [API End Points}(#api-endpoints)
+* [API End Points](#api-endpoints)
 * [Setup](#setup)
 * [Live App](#live-app)
 * [Tools Used](#tools-used)
